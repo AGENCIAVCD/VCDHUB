@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WPP Hub (Mini-CRM WhatsApp)
 
-## Getting Started
+MVP de mini-CRM estilo "Kommo caseiro" com foco em custo zero:
 
-First, run the development server:
+- Next.js (App Router)
+- Tailwind CSS
+- PostgreSQL via Supabase (free tier)
+- Deploy na Vercel Hobby
+- Integração com WhatsApp Cloud API (webhook + envio)
+- Autenticação simples por email/senha
+
+## 1. Variaveis de ambiente
+
+Copie `.env.example` para `.env.local` e preencha:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Obrigatorias:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `WHATSAPP_TOKEN`
+- `WHATSAPP_PHONE_NUMBER_ID`
+- `VERIFY_TOKEN`
+- `DATABASE_URL`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Recomendada para sessao:
 
-## Learn More
+- `AUTH_SECRET`
 
-To learn more about Next.js, take a look at the following resources:
+## 2. Banco de dados (Supabase)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+No SQL Editor do Supabase, rode:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [`supabase/schema.sql`](./supabase/schema.sql)
 
-## Deploy on Vercel
+Isso cria as tabelas:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `contacts`
+- `conversations`
+- `messages`
+- `pipeline_stages`
+- `deals`
+- `users` (suporte a autenticacao)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 3. Rodar local
+
+```bash
+npm install
+npm run dev
+```
+
+Acesse:
+
+- `http://localhost:3000/register` para criar o primeiro usuario
+- `http://localhost:3000/inbox` para inbox
+- `http://localhost:3000/pipeline` para funil
+
+## 4. Endpoints principais
+
+- `GET /api/webhook` valida webhook (`VERIFY_TOKEN`)
+- `POST /api/webhook` recebe mensagens e salva no banco
+- `POST /api/send-message` envia mensagem via WhatsApp e salva no banco
+
+Regras implementadas ao receber nova mensagem:
+
+1. Cria contato se nao existir
+2. Cria conversa se nao existir
+3. Salva mensagem
+
+## 5. Deploy na Vercel (Hobby)
+
+1. Suba o projeto para GitHub
+2. Importe o repo na Vercel
+3. Configure as mesmas variaveis de ambiente no painel da Vercel
+4. Deploy
+
+## Estrutura
+
+- `src/lib/whatsapp.ts`
+- `src/lib/db.ts`
+- `src/app/inbox`
+- `src/app/pipeline`
+- `src/app/conversation/[id]`
+- `src/app/api/webhook`
+- `src/app/api/send-message`
+
+## Observacoes
+
+- O webhook trata mensagens de texto (`type = text`) para manter simplicidade e custo zero.
+- Para producao, configure politicas de seguranca adicionais (rate limit, logging externo, monitoramento).
