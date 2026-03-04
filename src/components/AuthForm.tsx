@@ -47,7 +47,7 @@ export function AuthForm({ mode }: AuthFormProps) {
     <form onSubmit={onSubmit} className="vcd-card space-y-5 p-6 md:p-7">
       <div>
         <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-white/90">
-          Email
+          {mode === "login" ? "Usuário ou email" : "Email"}
         </label>
         <input
           id="email"
