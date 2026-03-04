@@ -61,6 +61,15 @@ body {
   box-shadow: 0 0 0 3px rgba(255, 181, 0, 0.18);
 }
 
+.vcd-input:-webkit-autofill,
+.vcd-input:-webkit-autofill:hover,
+.vcd-input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0px 1000px #0e1520 inset;
+  transition: background-color 5000s ease-in-out 0s;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
 .vcd-button {
   border-radius: 12px;
   background: var(--brand-primary);
