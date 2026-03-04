@@ -10,7 +10,7 @@ export default async function PipelinePage() {
   return (
     <AppShell title="Funil" subtitle="Arraste e solte cards entre as etapas">
       {stages.length === 0 ? (
-        <div className="rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
+        <div className="vcd-card border-amber-300/40 bg-amber-400/10 p-4 text-sm text-amber-100">
           Nenhuma etapa cadastrada. Rode o SQL de setup para inserir `pipeline_stages`.
         </div>
       ) : (

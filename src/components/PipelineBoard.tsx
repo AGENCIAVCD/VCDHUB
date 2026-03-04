@@ -65,8 +65,8 @@ export function PipelineBoard({ stages, deals }: PipelineBoardProps) {
   }
 
   return (
-    <div className="space-y-3">
-      {error ? <p className="text-sm text-red-600">{error}</p> : null}
+    <div className="space-y-4">
+      {error ? <p className="text-sm text-red-400">{error}</p> : null}
 
       <div className="grid gap-4 md:grid-cols-3">
         {grouped.map((stage) => (
@@ -78,11 +78,11 @@ export function PipelineBoard({ stages, deals }: PipelineBoardProps) {
               await moveDeal(draggingDealId, stage.id);
               setDraggingDealId(null);
             }}
-            className="min-h-72 rounded-lg border border-slate-200 bg-white p-3"
+            className="vcd-card min-h-72 p-4"
           >
             <header className="mb-3 flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-slate-800">{stage.name}</h3>
-              <span className="rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-600">
+              <h3 className="text-sm font-semibold tracking-[0.08em] text-white">{stage.name}</h3>
+              <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-2 py-1 text-xs text-amber-300">
                 {stage.deals.length}
               </span>
             </header>
@@ -93,17 +93,17 @@ export function PipelineBoard({ stages, deals }: PipelineBoardProps) {
                   key={deal.id}
                   draggable
                   onDragStart={() => setDraggingDealId(deal.id)}
-                  className="cursor-grab rounded-md border border-slate-200 bg-slate-50 p-3 active:cursor-grabbing"
+                  className="cursor-grab rounded-xl border border-white/10 bg-black/20 p-3 transition hover:border-amber-300/40 active:cursor-grabbing"
                 >
-                  <Link href={`/contact/${deal.contact_id}`} className="block text-sm font-medium text-slate-900">
+                  <Link href={`/contact/${deal.contact_id}`} className="block text-sm font-semibold text-white">
                     {deal.contact_name}
                   </Link>
-                  <p className="text-xs text-slate-600">{deal.phone}</p>
+                  <p className="vcd-muted text-xs">{deal.phone}</p>
                 </article>
               ))}
 
               {stage.deals.length === 0 ? (
-                <div className="rounded-md border border-dashed border-slate-200 p-4 text-center text-xs text-slate-500">
+                <div className="rounded-xl border border-dashed border-white/20 p-4 text-center text-xs text-white/55">
                   Solte um card aqui
                 </div>
               ) : null}

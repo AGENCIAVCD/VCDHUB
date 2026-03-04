@@ -48,20 +48,16 @@ export function ConversationComposer({ conversationId }: ConversationComposerPro
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-2 rounded-lg border border-slate-200 bg-white p-3">
+    <form onSubmit={onSubmit} className="vcd-card space-y-3 p-4">
       <textarea
         value={body}
         onChange={(event) => setBody(event.target.value)}
         placeholder="Digite sua resposta..."
         rows={3}
-        className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none focus:border-slate-500"
+        className="vcd-input w-full px-3 py-2 text-sm"
       />
-      {error ? <p className="text-sm text-red-600">{error}</p> : null}
-      <button
-        type="submit"
-        disabled={sending}
-        className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-500 disabled:opacity-50"
-      >
+      {error ? <p className="text-sm text-red-400">{error}</p> : null}
+      <button type="submit" disabled={sending} className="vcd-button px-4 py-2 text-sm disabled:opacity-50">
         {sending ? "Enviando..." : "Enviar no WhatsApp"}
       </button>
     </form>

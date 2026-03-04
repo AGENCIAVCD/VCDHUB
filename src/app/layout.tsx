@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${geist.variable} bg-slate-50 font-sans antialiased`}>{children}</body>
+      <body className={`${geist.variable} min-h-screen font-sans antialiased`}>{children}</body>
     </html>
   );
 }

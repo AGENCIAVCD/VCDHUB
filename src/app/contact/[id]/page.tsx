@@ -28,28 +28,26 @@ export default async function ContactPage({
   return (
     <AppShell title={contact.name} subtitle={contact.phone}>
       <div className="mb-4 flex items-center gap-4 text-sm">
-        <Link href="/inbox" className="text-slate-600 underline">
+        <Link href="/inbox" className="vcd-link">
           Voltar para inbox
         </Link>
       </div>
 
-      <section className="mb-6 rounded-lg border border-slate-200 bg-white p-4">
-        <h3 className="mb-2 text-sm font-semibold text-slate-900">Dados do contato</h3>
-        <p className="text-sm text-slate-700">Telefone: {contact.phone}</p>
-        <p className="text-sm text-slate-700">
-          Criado em: {new Date(contact.created_at).toLocaleString("pt-BR")}
-        </p>
+      <section className="vcd-card mb-6 p-4">
+        <h3 className="mb-2 text-sm font-semibold tracking-[0.08em] text-white">Dados do contato</h3>
+        <p className="text-sm text-white/80">Telefone: {contact.phone}</p>
+        <p className="text-sm text-white/80">Criado em: {new Date(contact.created_at).toLocaleString("pt-BR")}</p>
       </section>
 
-      <section className="mb-6 rounded-lg border border-slate-200 bg-white p-4">
-        <h3 className="mb-2 text-sm font-semibold text-slate-900">Conversas</h3>
+      <section className="vcd-card mb-6 p-4">
+        <h3 className="mb-2 text-sm font-semibold tracking-[0.08em] text-white">Conversas</h3>
         {conversations.length === 0 ? (
-          <p className="text-sm text-slate-600">Nenhuma conversa para este contato.</p>
+          <p className="text-sm text-white/65">Nenhuma conversa para este contato.</p>
         ) : (
           <ul className="space-y-2">
             {conversations.map((conversation) => (
               <li key={conversation.id}>
-                <Link href={`/conversation/${conversation.id}`} className="text-sm text-emerald-700 underline">
+                <Link href={`/conversation/${conversation.id}`} className="vcd-link text-sm">
                   Conversa #{conversation.id} ({conversation.status})
                 </Link>
               </li>
@@ -58,19 +56,17 @@ export default async function ContactPage({
         )}
       </section>
 
-      <section className="rounded-lg border border-slate-200 bg-white p-4">
-        <h3 className="mb-2 text-sm font-semibold text-slate-900">Histórico de mensagens</h3>
+      <section className="vcd-card p-4">
+        <h3 className="mb-2 text-sm font-semibold tracking-[0.08em] text-white">Histórico de mensagens</h3>
         {messages.length === 0 ? (
-          <p className="text-sm text-slate-600">Sem mensagens.</p>
+          <p className="text-sm text-white/65">Sem mensagens.</p>
         ) : (
           <ul className="space-y-2">
             {messages.map((message) => (
-              <li key={message.id} className="rounded-md border border-slate-100 bg-slate-50 p-3 text-sm">
-                <p className="font-medium text-slate-800">{message.from_me ? "Você" : "Contato"}</p>
-                <p className="text-slate-700">{message.body}</p>
-                <p className="text-xs text-slate-500">
-                  {new Date(message.timestamp).toLocaleString("pt-BR")}
-                </p>
+              <li key={message.id} className="rounded-xl border border-white/10 bg-black/20 p-3 text-sm">
+                <p className="font-semibold text-white">{message.from_me ? "Você" : "Contato"}</p>
+                <p className="text-white/80">{message.body}</p>
+                <p className="text-xs text-white/55">{new Date(message.timestamp).toLocaleString("pt-BR")}</p>
               </li>
             ))}
           </ul>
